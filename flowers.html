@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Flowers for Hannouket 💐</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #fff0f8 25%, #f8e8ff 50%, #fff5f0 75%, #ffeef8 100%);
+            --title-color: #ff1493;
+            --subtitle-color: #d63384;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --flower-name-color: #d63384;
+            --date-color: #6f42c1;
+            --quote-color: #495057;
+            --signature-color: #d63384;
+            --timer-text-color: #6f42c1;
+            --countdown-color: #d63384;
+        }
+        
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Sparkle animation */
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            font-size: 12px;
+            animation: sparkle 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .title {
+            font-size: 3rem;
+            color: var(--title-color);
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--subtitle-color);
+            font-weight: 400;
+        }
+        
+        .flower-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.15);
+            border: 2px solid var(--border-color, rgba(255, 182, 193, 0.3));
+            margin-bottom: 30px;
+            animation: slideUp 1s ease-out 0.3s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .flower-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.1), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .flower-display {
+            font-size: 8rem;
+            margin: 20px 0;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(255, 20, 147, 0.3));
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .flower-name {
+            font-size: 2rem;
+            color: var(--flower-name-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .date-display {
+            font-size: 1.1rem;
+            color: var(--date-color);
+            margin-bottom: 20px;
+            background: var(--date-bg, rgba(255, 182, 193, 0.2));
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+        }
+        
+        .quote-card {
+            background: linear-gradient(135deg, #fff0f8, #ffeef8);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.1);
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+        
+        .quote {
+            font-size: 1.3rem;
+            color: var(--quote-color);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .signature {
+            font-size: 1rem;
+            color: var(--signature-color);
+            font-weight: 600;
+        }
+        
+        .cat-stickers {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .cat1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .cat2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .cat3 { bottom: 30%; left: 5%; animation-delay: 2s; }
+        .cat4 { bottom: 20%; right: 10%; animation-delay: 1.5s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .next-flower-timer {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .timer-text {
+            color: var(--timer-text-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            color: var(--countdown-color);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .flower-display { font-size: 6rem; }
+            .flower-name { font-size: 1.5rem; }
+            .quote { font-size: 1.1rem; }
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorations -->
+    <div class="heart cat-stickers cat1">🐱</div>
+    <div class="heart cat-stickers cat2">🌸</div>
+    <div class="heart cat-stickers cat3">🦋</div>
+    <div class="heart cat-stickers cat4">🌺</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Daily Flowers for Hannouket 💐</h1>
+            <p class="subtitle">A bouquet of love, delivered fresh every day</p>
+        </div>
+        
+        <div class="flower-card">
+            <div class="date-display" id="currentDate"></div>
+            <div class="flower-display" id="flowerEmoji"></div>
+            <h2 class="flower-name" id="flowerName"></h2>
+        </div>
+        
+        <div class="quote-card">
+            <p class="quote" id="dailyQuote"></p>
+            <p class="signature">💕 With all my love</p>
+        </div>
+        
+        <div class="next-flower-timer">
+            <p class="timer-text">Next bouquet in:</p>
+            <div class="countdown" id="countdown"></div>
+        </div>
+    </div>
+
+    <script>
+        // Flower database with color schemes
+        const flowers = [
+            { 
+                emoji: '🌹', 
+                name: 'Red Rose', 
+                meaning: 'Deep Love',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fff0f0 0%, #ffe0e0 25%, #ffd0d0 50%, #ffe0e0 75%, #fff0f0 100%)',
+                    titleColor: '#ff0000',
+                    subtitleColor: '#cc0000',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#cc0000',
+                    dateColor: '#990000',
+                    dateBg: 'rgba(255, 200, 200, 0.3)',
+                    quoteColor: '#660000',
+                    signatureColor: '#cc0000',
+                    timerTextColor: '#990000',
+                    countdownColor: '#cc0000',
+                    borderColor: 'rgba(255, 0, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌷', 
+                name: 'Tulip', 
+                meaning: 'Perfect Love',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fff0ff 0%, #ffe0ff 25%, #ffd0ff 50%, #ffe0ff 75%, #fff0ff 100%)',
+                    titleColor: '#ff00ff',
+                    subtitleColor: '#cc00cc',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#cc00cc',
+                    dateColor: '#990099',
+                    dateBg: 'rgba(255, 200, 255, 0.3)',
+                    quoteColor: '#660066',
+                    signatureColor: '#cc00cc',
+                    timerTextColor: '#990099',
+                    countdownColor: '#cc00cc',
+                    borderColor: 'rgba(255, 0, 255, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌺', 
+                name: 'Hibiscus', 
+                meaning: 'Delicate Beauty',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fff5f0 0%, #ffe5e0 25%, #ffd5d0 50%, #ffe5e0 75%, #fff5f0 100%)',
+                    titleColor: '#ff4500',
+                    subtitleColor: '#cc3700',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#cc3700',
+                    dateColor: '#992800',
+                    dateBg: 'rgba(255, 200, 180, 0.3)',
+                    quoteColor: '#661c00',
+                    signatureColor: '#cc3700',
+                    timerTextColor: '#992800',
+                    countdownColor: '#cc3700',
+                    borderColor: 'rgba(255, 69, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌻', 
+                name: 'Sunflower', 
+                meaning: 'Adoration',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fffff0 0%, #ffffe0 25%, #ffffd0 50%, #ffffe0 75%, #fffff0 100%)',
+                    titleColor: '#ffd700',
+                    subtitleColor: '#ccac00',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#ccac00',
+                    dateColor: '#998000',
+                    dateBg: 'rgba(255, 255, 200, 0.3)',
+                    quoteColor: '#665500',
+                    signatureColor: '#ccac00',
+                    timerTextColor: '#998000',
+                    countdownColor: '#ccac00',
+                    borderColor: 'rgba(255, 215, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌸', 
+                name: 'Cherry Blossom', 
+                meaning: 'Life\'s Beauty',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fff0f5 0%, #ffe0eb 25%, #ffd0e1 50%, #ffe0eb 75%, #fff0f5 100%)',
+                    titleColor: '#ffb6c1',
+                    subtitleColor: '#cc9299',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#cc9299',
+                    dateColor: '#996d73',
+                    dateBg: 'rgba(255, 200, 210, 0.3)',
+                    quoteColor: '#66494d',
+                    signatureColor: '#cc9299',
+                    timerTextColor: '#996d73',
+                    countdownColor: '#cc9299',
+                    borderColor: 'rgba(255, 182, 193, 0.3)'
+                }
+            },
+            // Add more flower themes as needed...
+        ];
+        
+        // Love quotes database
+        const loveQuotes = [
+            "Every day with you feels like a beautiful dream come true.",
+            "You are my sunshine on cloudy days and my peace in stormy weather.",
+            "In your smile, I found something more beautiful than the stars.",
+            "You make my heart skip a beat and my soul dance with joy.",
+            "With you, every moment becomes a precious memory to treasure.",
+            "You are the missing piece that makes my heart complete.",
+            "Your love is like a gentle breeze that soothes my soul.",
+            "In your eyes, I see my forever and my always.",
+            "You are my favorite hello and my hardest goodbye.",
+            "Every day I fall in love with you all over again.",
+            "You are the poetry my heart writes in silence.",
+            "Your love is the music that makes my heart sing.",
+            "You turn ordinary moments into extraordinary memories.",
+            "With you, I've found my home in another person.",
+            "You are my greatest adventure and my safest place.",
+            "Your love is the light that guides me through life.",
+            "You make every day feel like Valentine's Day.",
+            "In your arms, I've found my paradise.",
+            "You are the reason I believe in fairy tales.",
+            "Your love is my favorite kind of magic."
+        ];
+        
+        // Create floating hearts and sparkles
+        function createFloatingElements() {
+            const hearts = ['💕', '💖', '💗', '💝', '🌸', '🦋', '✨'];
+            const sparkles = ['✨', '⭐', '💫', '🌟'];
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                document.body.appendChild(heart);
+            }
+            
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(sparkle);
+            }
+        }
+        
+        // Get flower for today based on date
+        function getTodaysFlower() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            return flowers[dayOfYear % flowers.length];
+        }
+        
+        // Get quote for today
+        function getTodaysQuote() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            return loveQuotes[dayOfYear % loveQuotes.length];
+        }
+        
+        // Format current date
+        function formatDate() {
+            const today = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return today.toLocaleDateString('en-US', options);
+        }
+        
+        // Update countdown to next day
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const diff = tomorrow - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Function to apply theme
+        function applyTheme(theme) {
+            document.documentElement.style.setProperty('--bg-gradient', theme.bgGradient);
+            document.documentElement.style.setProperty('--title-color', theme.titleColor);
+            document.documentElement.style.setProperty('--subtitle-color', theme.subtitleColor);
+            document.documentElement.style.setProperty('--card-bg', theme.cardBg);
+            document.documentElement.style.setProperty('--flower-name-color', theme.flowerNameColor);
+            document.documentElement.style.setProperty('--date-color', theme.dateColor);
+            document.documentElement.style.setProperty('--date-bg', theme.dateBg);
+            document.documentElement.style.setProperty('--quote-color', theme.quoteColor);
+            document.documentElement.style.setProperty('--signature-color', theme.signatureColor);
+            document.documentElement.style.setProperty('--timer-text-color', theme.timerTextColor);
+            document.documentElement.style.setProperty('--countdown-color', theme.countdownColor);
+            document.documentElement.style.setProperty('--border-color', theme.borderColor);
+        }
+        
+        // Update init function to apply theme
+        function init() {
+            const todaysFlower = getTodaysFlower();
+            const todaysQuote = getTodaysQuote();
+            
+            document.getElementById('currentDate').textContent = formatDate();
+            document.getElementById('flowerEmoji').textContent = todaysFlower.emoji;
+            document.getElementById('flowerName').textContent = `${todaysFlower.name} - ${todaysFlower.meaning}`;
+            document.getElementById('dailyQuote').textContent = `"${todaysQuote}"`;
+            
+            // Apply the flower's theme
+            if (todaysFlower.theme) {
+                applyTheme(todaysFlower.theme);
+            }
+            
+            createFloatingElements();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Start everything when page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
