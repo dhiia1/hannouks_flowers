@@ -601,8 +601,15 @@
         // Get flower for today based on date
         function getTodaysFlower() {
             const today = new Date();
-            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-            return flowers[dayOfYear % flowers.length];
+            // Create a string like '2024-06-09'
+            const dateStr = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+            // Simple hash function to get a pseudo-random but deterministic index for the day
+            let hash = 0;
+            for (let i = 0; i < dateStr.length; i++) {
+                hash = dateStr.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const index = Math.abs(hash) % flowers.length;
+            return flowers[index];
         }
         
         // Get quote for today
