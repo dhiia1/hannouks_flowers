@@ -59,6 +59,17 @@
             pointer-events: none;
         }
         
+        #cat-video {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 200px; 
+            height: 200px;
+            z-index: 10; 
+            pointer-events: none; 
+            mix-blend-mode: multiply; 
+        }
+        
         @keyframes sparkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1.2); }
@@ -222,10 +233,16 @@
             .flower-name { font-size: 1.5rem; }
             .quote { font-size: 1.1rem; }
             .container { padding: 15px; }
+            #cat-video {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
+    <video id="cat-video" autoplay muted playsinline loop></video>
+    
     <!-- Floating decorations -->
     <div class="heart cat-stickers cat1">🐱</div>
     <div class="heart cat-stickers cat2">🌸</div>
@@ -572,6 +589,51 @@
 
         ];
         
+        const catVideos = [
+            'cat-playing-guitar-animation-download-in-lottie-json-gif-static-svg-file-formats--musician-adorable-happy-pet-care-activity-5-pack-animal-animations-5641421.mp4',
+            'cat-working-on-laptop-animation-download-in-lottie-json-gif-static-svg-file-formats--business-work-activity-5-pack-animal-animations-5641422.mp4',
+            'cat-sleeping-on-laptop-animation-download-in-lottie-json-gif-static-svg-file-formats--pretty-logo-sleep-activity-pack-animal-animations-6319297.mp4',
+            'cat-playing-with-joystick-animation-download-in-lottie-json-gif-static-svg-file-formats--pretty-logo-activity-pack-animal-animations-6319296.mp4',
+            'cat-angle-animation-download-in-lottie-json-gif-static-svg-file-formats--cute-ring-various-cats-with-activities-pack-animal-animations-5715625.mp4',
+            'ninja-cat-animation-download-in-lottie-json-gif-static-svg-file-formats--kitty-cute-various-cats-with-activities-pack-animal-animations-5715624.mp4',
+            'cat-playing-with-fish-animation-download-in-lottie-json-gif-static-svg-file-formats--fishing-pot-pet-various-cats-activities-pack-animal-animations-5715626.mp4',
+            'cat-walking-with-shopping-bags-animation-download-in-lottie-json-gif-static-svg-file-formats--ecommerce-shop-activity-12-pack-animal-animations-7155623.mp4',
+            'cat-spreading-love-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--lovely-cute-pack-animal-icons-5423542.mp4',
+            'lovely-cat-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--lover-animal-kitten-pet-pack-icons-5473698.mp4',
+            'cat-sleepy-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--pets-kitten-activity-36-pack-animal-icons-9767838.mp4',
+            'cat-and-coffee-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--break-pets-kitten-activity-36-pack-animal-icons-9767837.mp4',
+            'cat-chubby-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--fat-activity-36-pack-animal-icons-9767839.mp4',
+            'cat-say-hello-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--logo-saying-pet-animal-hi-pack-icons-5585226.mp4',
+            'cat-saying-hello-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--logo-say-pet-animal-hi-pack-icons-5585227.mp4',
+            'cat-say-hello-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--logo-saying-pet-pack-animal-icons-5585228.mp4',
+            'cat-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--animal-pet-dog-kitten-emoji-activity-22-pack-pets-icons-8240766.mp4',
+            'cat-holding-fish-animated-icon-download-in-lottie-json-gif-static-svg-file-formats--lover-with-activity-22-pack-pets-icons-8240765.mp4',
+            'cat-eats-fish-animation-download-in-lottie-json-gif-static-svg-file-formats--pretty-logo-pet-activity-pack-animal-animations-6614176.mp4',
+            'cat-drinking-milk-animation-download-in-lottie-json-gif-static-svg-file-formats--pretty-logo-pet-cute-activity-pack-animal-animations-6614175.mp4',
+            'cat-animation-download-in-lottie-json-gif-static-svg-file-formats--pretty-logo-cute-animal-funny-kitten-activity-pack-animations-6614177.mp4'
+        ];
+        
+        let catTimeout;
+
+        function playNextVideo() {
+            const videoElement = document.getElementById('cat-video');
+            clearTimeout(catTimeout);
+
+            const videoIndex = Math.floor(Math.random() * catVideos.length);
+            videoElement.src = catVideos[videoIndex];
+            videoElement.play();
+
+            // Randomly flip the cat's direction
+            if (Math.random() > 0.5) {
+                videoElement.style.transform = 'scaleX(-1)';
+            } else {
+                videoElement.style.transform = 'scaleX(1)';
+            }
+
+            const thirtyMinutesInMs = 30 * 60 * 1000;
+            catTimeout = setTimeout(playNextVideo, thirtyMinutesInMs);
+        }
+        
         // Create floating hearts and sparkles
         function createFloatingElements() {
             const hearts = ['💕', '💖', '💗', '💝', '🌸', '🦋', '✨'];
@@ -663,6 +725,10 @@
             document.documentElement.style.setProperty('--border-color', theme.borderColor);
         }
         
+        function initCatVideo() {
+            playNextVideo(); // Start the cycle
+        }
+        
         // Update init function to apply theme
         function init() {
             const todaysFlower = getTodaysFlower();
@@ -681,9 +747,10 @@
             createFloatingElements();
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            initCatVideo();
         }
         
-        // Start everything when page loads
+        // Start everything when page loadsfl
         window.addEventListener('load', init);
     </script>
 </body>
