@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Flowers for Hannouket 💐</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
         
@@ -242,6 +243,330 @@
             font-weight: 600;
         }
         
+        /* Interactive Elements */
+        .flower-display {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .flower-display:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 15px 30px rgba(255, 20, 147, 0.5));
+        }
+        
+        #cat-video {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #cat-video:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Particle Effects */
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 20px;
+            animation: petalFall 4s linear infinite;
+        }
+        
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Stats Panel */
+        .stats-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.15);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            z-index: 20;
+            min-width: 200px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 0.9rem;
+            color: var(--date-color);
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--signature-color);
+        }
+        
+        /* Achievement Popup */
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.5s ease;
+            border: 3px solid #ffa500;
+        }
+        
+        .achievement-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .achievement-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b8860b;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-desc {
+            color: #8b7355;
+            font-size: 1rem;
+        }
+        
+        /* Surprise Message */
+        .surprise-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.3);
+            transform: translateX(400px);
+            transition: all 0.5s ease;
+            z-index: 100;
+            max-width: 300px;
+            cursor: pointer;
+        }
+        
+        .surprise-message.show {
+            transform: translateX(0);
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+        
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .theme-day { background: linear-gradient(135deg, #87ceeb, #98fb98); }
+        .theme-night { background: linear-gradient(135deg, #2c3e50, #4a6741); }
+        .theme-sunset { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+        
+        /* Mini Game */
+        .mini-game {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.2);
+            z-index: 1000;
+            transition: all 0.5s ease;
+            text-align: center;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .mini-game.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .memory-card {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            margin: 5px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 60px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .memory-card.flipped {
+            background: white;
+            color: #333;
+            border: 2px solid var(--signature-color);
+        }
+        
+        /* Weather Widget */
+        .weather-widget {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: var(--date-color);
+        }
+        
+        /* Photo Memories */
+        .photo-memory {
+            position: fixed;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%) scale(0);
+            width: 300px;
+            height: 200px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.5s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .photo-memory.show {
+            transform: translate(-50%, 50%) scale(1);
+        }
+        
+        .photo-memory img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.15);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            color: var(--signature-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Collection Book */
+        .collection-book {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80%;
+            max-width: 600px;
+            height: 80%;
+            max-height: 500px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.2);
+            z-index: 1000;
+            transition: all 0.5s ease;
+            overflow-y: auto;
+        }
+        
+        .collection-book.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .flower-collection-item {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .flower-collection-item:hover {
+            transform: scale(1.05);
+            border-color: var(--signature-color);
+        }
+        
+        .flower-collection-item.collected {
+            border-color: #32cd32;
+            box-shadow: 0 5px 15px rgba(50, 205, 50, 0.3);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--signature-color);
+        }
+        
         @media (max-width: 768px) {
             .title { font-size: 2rem; }
             .flower-display { font-size: 6rem; }
@@ -258,11 +583,72 @@
                 width: 120px;
                 font-size: 16px;
             }
+            .stats-panel {
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+                min-width: 150px;
+            }
+            .theme-switcher {
+                top: 10px;
+                left: 10px;
+            }
+            .theme-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .collection-book {
+                width: 95%;
+                height: 90%;
+                padding: 20px;
+            }
+            .surprise-message {
+                bottom: 10px;
+                right: 10px;
+                max-width: 250px;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <video id="cat-video" autoplay muted playsinline loop></video>
+    <!-- Audio elements -->
+    <audio id="background-music" loop preload="auto"></audio>
+    
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <div class="theme-btn theme-day" onclick="switchTheme('day')" title="Day Theme"></div>
+        <div class="theme-btn theme-night" onclick="switchTheme('night')" title="Night Theme"></div>
+        <div class="theme-btn theme-sunset" onclick="switchTheme('sunset')" title="Sunset Theme"></div>
+    </div>
+    
+    <!-- Stats Panel -->
+    <div class="stats-panel">
+        <div class="stat-item">
+            <span><i class="fas fa-calendar-day"></i> Visit Streak</span>
+            <span class="stat-value" id="visit-streak">1</span>
+        </div>
+        <div class="stat-item">
+            <span><i class="fas fa-heart"></i> Total Visits</span>
+            <span class="stat-value" id="total-visits">1</span>
+        </div>
+        <div class="stat-item">
+            <span><i class="fas fa-seedling"></i> Flowers Collected</span>
+            <span class="stat-value" id="flowers-collected">1/15</span>
+        </div>
+        <div class="stat-item">
+            <span><i class="fas fa-trophy"></i> Love Points</span>
+            <span class="stat-value" id="love-points">100</span>
+        </div>
+        <button class="music-btn" onclick="toggleMusic()" id="music-toggle">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="music-btn" onclick="openCollection()" title="Flower Collection">
+            <i class="fas fa-book"></i>
+        </button>
+    </div>
+    
+    <video id="cat-video" autoplay muted playsinline loop onclick="interactWithCat()"></video>
     <div id="cat-corner-label">Felfleya's corner</div>
     
     <!-- Floating decorations -->
@@ -278,9 +664,11 @@
         </div>
         
         <div class="flower-card">
+            <div class="weather-widget" id="weather-widget"></div>
             <div class="date-display" id="currentDate"></div>
-            <div class="flower-display" id="flowerEmoji"></div>
+            <div class="flower-display" id="flowerEmoji" onclick="interactWithFlower()" title="Click me!"></div>
             <h2 class="flower-name" id="flowerName"></h2>
+            <p class="flower-meaning" id="flowerMeaning"></p>
         </div>
         
         <div class="quote-card">
@@ -291,11 +679,59 @@
         <div class="next-flower-timer">
             <p class="timer-text">Next bouquet in:</p>
             <div class="countdown" id="countdown"></div>
+            <button class="music-btn" onclick="openMiniGame()" style="margin-top: 15px;">
+                <i class="fas fa-gamepad"></i> Play Memory Game
+            </button>
+        </div>
+    </div>
+    
+    <!-- Achievement Popup -->
+    <div id="achievement-popup" class="achievement-popup">
+        <div class="achievement-icon" id="achievement-icon">🏆</div>
+        <div class="achievement-title" id="achievement-title">Achievement Unlocked!</div>
+        <div class="achievement-desc" id="achievement-desc">You've earned a special reward!</div>
+        <button class="music-btn" onclick="closeAchievement()" style="margin-top: 15px; color: #b8860b;">
+            <i class="fas fa-check"></i> Awesome!
+        </button>
+    </div>
+    
+    <!-- Surprise Message -->
+    <div id="surprise-message" class="surprise-message" onclick="closeSurpriseMessage()">
+        <div id="surprise-text">Surprise! 🎉</div>
+        <small>Click to close</small>
+    </div>
+    
+    <!-- Mini Game -->
+    <div id="mini-game" class="mini-game">
+        <button class="close-btn" onclick="closeMiniGame()">×</button>
+        <h3 style="color: var(--signature-color); margin-bottom: 20px;">Memory Game 🎮</h3>
+        <p style="margin-bottom: 20px; color: var(--quote-color);">Match the flower pairs!</p>
+        <div id="game-board"></div>
+        <p id="game-score" style="margin-top: 20px; color: var(--signature-color); font-weight: 600;">Score: 0</p>
+    </div>
+    
+    <!-- Flower Collection Book -->
+    <div id="collection-book" class="collection-book">
+        <button class="close-btn" onclick="closeCollection()">×</button>
+        <h2 style="color: var(--signature-color); margin-bottom: 20px; text-align: center;">
+            🌸 Flower Collection Book 🌸
+        </h2>
+        <p style="text-align: center; margin-bottom: 30px; color: var(--quote-color);">
+            Collect all the flowers by visiting daily!
+        </p>
+        <div id="collection-grid"></div>
+    </div>
+    
+    <!-- Photo Memory -->
+    <div id="photo-memory" class="photo-memory" onclick="closePhotoMemory()">
+        <img id="memory-image" src="" alt="Beautiful Memory">
+        <div style="position: absolute; bottom: 10px; left: 10px; color: white; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 10px; font-size: 0.9rem;">
+            A beautiful memory 💕 <small>(Click to close)</small>
         </div>
     </div>
 
     <script>
-        // Flower database with color schemes
+        // Enhanced Flower database with color schemes
         const flowers = [
             { 
                 emoji: '🌹', 
@@ -563,11 +999,354 @@
                     borderColor: 'rgba(34, 139, 34, 0.3)'
                 }
             },
-            // Add more flower themes as needed...
+            // Seasonal Spring Flowers
+            { 
+                emoji: '🌷', 
+                name: 'Pink Tulip', 
+                meaning: 'Care & Good Wishes',
+                rarity: 'common',
+                season: 'spring',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #ffb3e6 0%, #ff99dd 25%, #ff80d4 50%, #ff99dd 75%, #ffb3e6 100%)',
+                    titleColor: '#e6006b',
+                    subtitleColor: '#cc0058',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#cc0058',
+                    dateColor: '#990045',
+                    dateBg: 'rgba(255, 179, 230, 0.3)',
+                    quoteColor: '#660032',
+                    signatureColor: '#cc0058',
+                    timerTextColor: '#990045',
+                    countdownColor: '#cc0058',
+                    borderColor: 'rgba(230, 0, 107, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌺', 
+                name: 'Red Hibiscus', 
+                meaning: 'Passionate Love',
+                rarity: 'common',
+                season: 'summer',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #ffcccc 0%, #ffb3b3 25%, #ff9999 50%, #ffb3b3 75%, #ffcccc 100%)',
+                    titleColor: '#cc0000',
+                    subtitleColor: '#990000',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#990000',
+                    dateColor: '#660000',
+                    dateBg: 'rgba(255, 204, 204, 0.3)',
+                    quoteColor: '#660000',
+                    signatureColor: '#990000',
+                    timerTextColor: '#660000',
+                    countdownColor: '#990000',
+                    borderColor: 'rgba(204, 0, 0, 0.3)'
+                }
+            },
+            // More Spring Flowers
+            { 
+                emoji: '🌱', 
+                name: 'Baby Sprout', 
+                meaning: 'Fresh Start Together',
+                rarity: 'common',
+                season: 'spring',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #e6ffe6 0%, #ccffcc 25%, #b3ffb3 50%, #ccffcc 75%, #e6ffe6 100%)',
+                    titleColor: '#00cc00',
+                    subtitleColor: '#009900',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#009900',
+                    dateColor: '#006600',
+                    dateBg: 'rgba(230, 255, 230, 0.3)',
+                    quoteColor: '#006600',
+                    signatureColor: '#009900',
+                    timerTextColor: '#006600',
+                    countdownColor: '#009900',
+                    borderColor: 'rgba(0, 204, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌿', 
+                name: 'Fresh Mint', 
+                meaning: 'Refreshing Love',
+                rarity: 'common',
+                season: 'spring',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #f0fff0 0%, #e0ffe0 25%, #d0ffd0 50%, #e0ffe0 75%, #f0fff0 100%)',
+                    titleColor: '#20b2aa',
+                    subtitleColor: '#008b8b',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#008b8b',
+                    dateColor: '#006666',
+                    dateBg: 'rgba(240, 255, 240, 0.3)',
+                    quoteColor: '#006666',
+                    signatureColor: '#008b8b',
+                    timerTextColor: '#006666',
+                    countdownColor: '#008b8b',
+                    borderColor: 'rgba(32, 178, 170, 0.3)'
+                }
+            },
+            // Summer Flowers
+            { 
+                emoji: '🌻', 
+                name: 'Giant Sunflower', 
+                meaning: 'Loyal Devotion',
+                rarity: 'uncommon',
+                season: 'summer',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fff8dc 0%, #ffebcd 25%, #ffe4b5 50%, #ffebcd 75%, #fff8dc 100%)',
+                    titleColor: '#ff8c00',
+                    subtitleColor: '#ff7f00',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#ff7f00',
+                    dateColor: '#e6730a',
+                    dateBg: 'rgba(255, 248, 220, 0.3)',
+                    quoteColor: '#cc6600',
+                    signatureColor: '#ff7f00',
+                    timerTextColor: '#e6730a',
+                    countdownColor: '#ff7f00',
+                    borderColor: 'rgba(255, 140, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌼', 
+                name: 'Wild Daisy', 
+                meaning: 'Playful Spirit',
+                rarity: 'common',
+                season: 'summer',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #fffacd 0%, #fff8dc 25%, #f0e68c 50%, #fff8dc 75%, #fffacd 100%)',
+                    titleColor: '#daa520',
+                    subtitleColor: '#b8860b',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#b8860b',
+                    dateColor: '#9a7209',
+                    dateBg: 'rgba(255, 250, 205, 0.3)',
+                    quoteColor: '#9a7209',
+                    signatureColor: '#b8860b',
+                    timerTextColor: '#9a7209',
+                    countdownColor: '#b8860b',
+                    borderColor: 'rgba(218, 165, 32, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌺', 
+                name: 'Tropical Hibiscus', 
+                meaning: 'Exotic Beauty',
+                rarity: 'uncommon',
+                season: 'summer',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #ffb6c1 0%, #ffa0b4 25%, #ff91a4 50%, #ffa0b4 75%, #ffb6c1 100%)',
+                    titleColor: '#dc143c',
+                    subtitleColor: '#b91c3c',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#b91c3c',
+                    dateColor: '#8b0000',
+                    dateBg: 'rgba(255, 182, 193, 0.3)',
+                    quoteColor: '#8b0000',
+                    signatureColor: '#b91c3c',
+                    timerTextColor: '#8b0000',
+                    countdownColor: '#b91c3c',
+                    borderColor: 'rgba(220, 20, 60, 0.3)'
+                }
+            },
+            // Fall/Autumn Flowers
+            { 
+                emoji: '🍂', 
+                name: 'Golden Leaves', 
+                meaning: 'Beautiful Changes',
+                rarity: 'common',
+                season: 'fall',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #deb887 0%, #d2b48c 25%, #cd853f 50%, #d2b48c 75%, #deb887 100%)',
+                    titleColor: '#a0522d',
+                    subtitleColor: '#8b4513',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#8b4513',
+                    dateColor: '#654321',
+                    dateBg: 'rgba(222, 184, 135, 0.3)',
+                    quoteColor: '#654321',
+                    signatureColor: '#8b4513',
+                    timerTextColor: '#654321',
+                    countdownColor: '#8b4513',
+                    borderColor: 'rgba(160, 82, 45, 0.3)'
+                }
+            },
+            { 
+                emoji: '🍄', 
+                name: 'Woodland Mushroom', 
+                meaning: 'Cozy Together',
+                rarity: 'rare',
+                season: 'fall',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #f4a460 0%, #deb887 25%, #d2b48c 50%, #deb887 75%, #f4a460 100%)',
+                    titleColor: '#8b4513',
+                    subtitleColor: '#654321',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#654321',
+                    dateColor: '#483c32',
+                    dateBg: 'rgba(244, 164, 96, 0.3)',
+                    quoteColor: '#483c32',
+                    signatureColor: '#654321',
+                    timerTextColor: '#483c32',
+                    countdownColor: '#654321',
+                    borderColor: 'rgba(139, 69, 19, 0.3)'
+                }
+            },
+            // Winter Flowers
+            { 
+                emoji: '❄️', 
+                name: 'Snowflake', 
+                meaning: 'Unique & Special',
+                rarity: 'uncommon',
+                season: 'winter',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 25%, #ddeeff 50%, #e6f3ff 75%, #f0f8ff 100%)',
+                    titleColor: '#4682b4',
+                    subtitleColor: '#4169e1',
+                    cardBg: 'rgba(255, 255, 255, 0.98)',
+                    flowerNameColor: '#4169e1',
+                    dateColor: '#191970',
+                    dateBg: 'rgba(240, 248, 255, 0.3)',
+                    quoteColor: '#191970',
+                    signatureColor: '#4169e1',
+                    timerTextColor: '#191970',
+                    countdownColor: '#4169e1',
+                    borderColor: 'rgba(70, 130, 180, 0.3)'
+                }
+            },
+            { 
+                emoji: '🎄', 
+                name: 'Christmas Tree', 
+                meaning: 'Holiday Joy',
+                rarity: 'rare',
+                season: 'winter',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #228b22 0%, #32cd32 25%, #00ff00 50%, #32cd32 75%, #228b22 100%)',
+                    titleColor: '#006400',
+                    subtitleColor: '#228b22',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#228b22',
+                    dateColor: '#006400',
+                    dateBg: 'rgba(34, 139, 34, 0.1)',
+                    quoteColor: '#006400',
+                    signatureColor: '#228b22',
+                    timerTextColor: '#006400',
+                    countdownColor: '#228b22',
+                    borderColor: 'rgba(34, 139, 34, 0.3)'
+                }
+            },
+            // Rare & Special Flowers
+            { 
+                emoji: '🌟', 
+                name: 'Shooting Star', 
+                meaning: 'Wish Come True',
+                rarity: 'legendary',
+                season: 'any',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 25%, #fff59d 50%, #ffed4e 75%, #ffd700 100%)',
+                    titleColor: '#ff6f00',
+                    subtitleColor: '#e65100',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#e65100',
+                    dateColor: '#bf360c',
+                    dateBg: 'rgba(255, 215, 0, 0.3)',
+                    quoteColor: '#bf360c',
+                    signatureColor: '#e65100',
+                    timerTextColor: '#bf360c',
+                    countdownColor: '#e65100',
+                    borderColor: 'rgba(255, 111, 0, 0.3)'
+                }
+            },
+            { 
+                emoji: '🦋', 
+                name: 'Butterfly Garden', 
+                meaning: 'Transformation',
+                rarity: 'rare',
+                season: 'spring',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #e1bee7 0%, #ce93d8 25%, #ba68c8 50%, #ce93d8 75%, #e1bee7 100%)',
+                    titleColor: '#8e24aa',
+                    subtitleColor: '#7b1fa2',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#7b1fa2',
+                    dateColor: '#6a1b9a',
+                    dateBg: 'rgba(225, 190, 231, 0.3)',
+                    quoteColor: '#6a1b9a',
+                    signatureColor: '#7b1fa2',
+                    timerTextColor: '#6a1b9a',
+                    countdownColor: '#7b1fa2',
+                    borderColor: 'rgba(142, 36, 170, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌈', 
+                name: 'Rainbow Promise', 
+                meaning: 'Hope & Dreams',
+                rarity: 'legendary',
+                season: 'any',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #fecfef 75%, #ff9a9e 100%)',
+                    titleColor: '#e91e63',
+                    subtitleColor: '#c2185b',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#c2185b',
+                    dateColor: '#ad1457',
+                    dateBg: 'rgba(255, 154, 158, 0.3)',
+                    quoteColor: '#ad1457',
+                    signatureColor: '#c2185b',
+                    timerTextColor: '#ad1457',
+                    countdownColor: '#c2185b',
+                    borderColor: 'rgba(233, 30, 99, 0.3)'
+                }
+            },
+            // More Common Flowers
+            { 
+                emoji: '🌾', 
+                name: 'Wheat Field', 
+                meaning: 'Abundance Together',
+                rarity: 'common',
+                season: 'fall',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #f5deb3 0%, #deb887 25%, #d2b48c 50%, #deb887 75%, #f5deb3 100%)',
+                    titleColor: '#b8860b',
+                    subtitleColor: '#daa520',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#daa520',
+                    dateColor: '#b8860b',
+                    dateBg: 'rgba(245, 222, 179, 0.3)',
+                    quoteColor: '#b8860b',
+                    signatureColor: '#daa520',
+                    timerTextColor: '#b8860b',
+                    countdownColor: '#daa520',
+                    borderColor: 'rgba(218, 165, 32, 0.3)'
+                }
+            },
+            { 
+                emoji: '🌰', 
+                name: 'Autumn Acorn', 
+                meaning: 'Small Beginnings',
+                rarity: 'common',
+                season: 'fall',
+                theme: {
+                    bgGradient: 'linear-gradient(135deg, #d2b48c 0%, #bc9a6a 25%, #a0522d 50%, #bc9a6a 75%, #d2b48c 100%)',
+                    titleColor: '#8b4513',
+                    subtitleColor: '#a0522d',
+                    cardBg: 'rgba(255, 255, 255, 0.95)',
+                    flowerNameColor: '#a0522d',
+                    dateColor: '#8b4513',
+                    dateBg: 'rgba(210, 180, 140, 0.3)',
+                    quoteColor: '#8b4513',
+                    signatureColor: '#a0522d',
+                    timerTextColor: '#8b4513',
+                    countdownColor: '#a0522d',
+                    borderColor: 'rgba(160, 82, 45, 0.3)'
+                }
+            }
         ];
         
-        // Love quotes database
+        // Enhanced Love quotes database with humor, passion, and variety
         const loveQuotes = [
+            // Sweet & Passionate
             "Every day with you feels like a beautiful dream come true.",
             "You are my sunshine on cloudy days and my peace in stormy weather.",
             "In your smile, I found something more beautiful than the stars.",
@@ -606,9 +1385,125 @@
             "Your love is my favorite story.",
             "You are the dream I never want to wake up from.",
             "You are my forever and always.",
+            
+            // Passionate & Intense
+            "You set my heart on fire and my soul ablaze with love.",
+            "Every kiss from you is a promise of forever.",
+            "I'm addicted to your love and I never want to recover.",
+            "You make me feel like I'm burning with the most beautiful flame.",
+            "My love for you grows stronger with every breath I take.",
+            "You are the passion that drives my heart wild.",
+            "I crave your love like flowers crave the sun.",
+            "You are my obsession, my desire, my everything.",
+            "With you, I've discovered what it means to love with my entire being.",
+            "Your touch ignites a fire that burns eternally in my soul.",
+            "I'm completely, utterly, hopelessly in love with you.",
+            "You make my heart race and my soul soar to new heights.",
+            "I want to love you in every lifetime, in every universe.",
+            "You are my deepest desire and my sweetest addiction.",
+            "Every fiber of my being belongs to you and only you.",
+            "You are the fire in my veins and the beat in my heart.",
+            "I love you with a passion that consumes my entire world.",
+            "You are my forbidden fruit that I can't resist.",
+            "My love for you is infinite, boundless, and eternal.",
+            "You make me feel alive in ways I never knew possible.",
+            
+            // Funny & Playful
+            "You're the reason I smile at my phone like an idiot.",
+            "I love you more than pizza... and that's saying A LOT!",
+            "You're my favorite notification and my cutest distraction.",
+            "I love you even when you steal all the blankets at night.",
+            "You're the peanut butter to my jelly, the cheese to my macaroni.",
+            "I love you more than coffee in the morning (and that's true love!).",
+            "You're my favorite weirdo and my partner in crime.",
+            "I love you even when you sing off-key in the shower.",
+            "You're the reason I believe in love at first sight... and second sight... and every sight after.",
+            "I love you more than my phone battery loves dying at 1%.",
+            "You're my favorite person to do nothing with and everything with.",
+            "I love you even when you leave your socks everywhere.",
+            "You're the reason I wake up with a goofy smile on my face.",
+            "I love you more than dogs love belly rubs.",
+            "You're my favorite chaos and my sweetest mess.",
+            "I love you even when you quote TikToks at 3 AM.",
+            "You're the reason I believe soulmates exist... and why they probably laugh a lot together.",
+            "I love you more than Netflix loves cliffhangers.",
+            "You're my favorite human and my best bad decision.",
+            "I love you even when you eat the last piece of chocolate.",
+            
+            // Gaming/Nerdy References
             "You're the Malphite to my Yasuo.",
-            "You're the glass box to my deveation.",
-
+            "You're the glass box to my deviation.",
+            "You're my player 2, my co-op partner, my favorite teammate.",
+            "I'd choose you in every timeline, every universe, every game.",
+            "You're the legendary drop I never expected but always wanted.",
+            "Our love story is better than any RPG I've ever played.",
+            "You're my final boss that I never want to defeat.",
+            "I love you more than getting a perfect headshot.",
+            "You're the achievement I'm most proud of unlocking.",
+            "Our relationship has the best graphics and the perfect storyline.",
+            "You're my favorite easter egg hidden in the game of life.",
+            "I'd sacrifice my K/D ratio just to spend time with you.",
+            "You're the rare spawn that made my heart skip with excitement.",
+            "I love you more than hitting that perfect combo.",
+            "You're my favorite character and my main since day one.",
+            
+            // Unique & Creative
+            "You're the reason I believe in magic, miracles, and Monday mornings.",
+            "I love you in 47 different languages and counting.",
+            "You're my favorite plot twist in the story of life.",
+            "I love you more than cats love knocking things off tables.",
+            "You're the reason my heart has its own theme song now.",
+            "I love you like the ocean loves the shore - constantly and forever.",
+            "You're my favorite constellation in a sky full of stars.",
+            "I love you more than books love cliffhangers.",
+            "You're the reason I understand why they call it 'falling' in love.",
+            "I love you like flowers love the rain - desperately and gratefully.",
+            "You're my favorite chapter in every book I'll ever read.",
+            "I love you more than time loves ticking forward.",
+            "You're the reason I believe in happy endings and new beginnings.",
+            "I love you like the moon loves the night - completely and eternally.",
+            "You're my favorite paradox: you make time stop and fly at the same time.",
+            
+            // Deep & Poetic
+            "In a world full of temporary things, you are my forever.",
+            "You are the love letter the universe wrote just for me.",
+            "I found my soul in yours and my home in your heart.",
+            "You are the answer to prayers I didn't know I was praying.",
+            "In your love, I found the missing pieces of myself.",
+            "You are the melody that my heart has been trying to sing.",
+            "With you, I learned that love is not just a feeling but a way of being.",
+            "You are the masterpiece painted on the canvas of my heart.",
+            "In loving you, I discovered parts of myself I never knew existed.",
+            "You are the sunrise that brings color to my black and white world.",
+            "My love for you is written in the stars and sealed in eternity.",
+            "You are the garden where all my dreams decided to bloom.",
+            "In your eyes, I see the reflection of our beautiful future.",
+            "You are the bridge between my dreams and my reality.",
+            "With you, every goodbye is just another hello waiting to happen.",
+            
+            // Seasonal & Thematic
+            "You warm my heart like spring sunshine after a long winter.",
+            "I love you like summer loves long, lazy afternoons.",
+            "You're the cozy autumn feeling I want to wrap myself in forever.",
+            "I love you like winter loves the first snowfall - pure and magical.",
+            "You're my favorite season in the year of my heart.",
+            "I love you like gardens love the first day of spring.",
+            "You're the reason every season feels like the best season.",
+            "I love you like Christmas morning and birthday surprises combined.",
+            "You're my favorite holiday that happens every day.",
+            "I love you like New Year's Eve loves new beginnings.",
+            
+            // Extra Sweet & Silly
+            "You're the reason I put heart emojis in my grocery lists.",
+            "I love you more than penguins love sliding on ice.",
+            "You're my favorite person to be weird with.",
+            "I love you even when you laugh at your own jokes before telling them.",
+            "You're the reason I believe in fairy godmothers and happy accidents.",
+            "I love you more than dogs love car rides with the windows down.",
+            "You're my favorite person to share conspiracy theories with at 2 AM.",
+            "I love you like kids love snow days - with pure, uncontainable joy.",
+            "You're the reason my heart does that fluttery thing.",
+            "I love you more than anything that has ever been loved before."
         ];
         
         const catVideos = [
@@ -682,18 +1577,93 @@
             }
         }
         
-        // Get flower for today based on date
+        // Enhanced flower selection with rarity and seasonal system
+        function getCurrentSeason() {
+            const month = new Date().getMonth() + 1;
+            if (month >= 3 && month <= 5) return 'spring';
+            if (month >= 6 && month <= 8) return 'summer';
+            if (month >= 9 && month <= 11) return 'fall';
+            return 'winter';
+        }
+        
+        function getFlowersByRarity(rarity) {
+            return flowers.filter(flower => flower.rarity === rarity);
+        }
+        
+        function getSeasonalFlowers(season) {
+            return flowers.filter(flower => flower.season === season || flower.season === 'any');
+        }
+        
         function getTodaysFlower() {
             const today = new Date();
-            // Create a string like '2024-06-09'
             const dateStr = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-            // Simple hash function to get a pseudo-random but deterministic index for the day
+            
+            // Create hash for deterministic randomness
             let hash = 0;
             for (let i = 0; i < dateStr.length; i++) {
                 hash = dateStr.charCodeAt(i) + ((hash << 5) - hash);
             }
-            const index = Math.abs(hash) % flowers.length;
-            return flowers[index];
+            
+            // Base rarity chances
+            let rarityChances = {
+                'common': 60,     // 60% chance
+                'uncommon': 25,   // 25% chance
+                'rare': 12,       // 12% chance
+                'legendary': 3    // 3% chance
+            };
+            
+            // Bonus chance modifiers
+            const bonuses = calculateRarityBonuses();
+            if (bonuses.rareBoost) {
+                rarityChances.rare += 8; // Boost rare chance
+                rarityChances.common -= 6;
+                rarityChances.uncommon -= 2;
+            }
+            if (bonuses.legendaryBoost) {
+                rarityChances.legendary += 7; // Major legendary boost
+                rarityChances.common -= 5;
+                rarityChances.uncommon -= 2;
+            }
+            if (bonuses.weekendBonus) {
+                rarityChances.uncommon += 10; // Weekend bonus
+                rarityChances.common -= 10;
+            }
+            
+            // Determine rarity based on hash
+            const rarityRoll = Math.abs(hash) % 100;
+            let selectedRarity = 'common';
+            let cumulative = 0;
+            
+            for (const [rarity, chance] of Object.entries(rarityChances)) {
+                cumulative += chance;
+                if (rarityRoll < cumulative) {
+                    selectedRarity = rarity;
+                    break;
+                }
+            }
+            
+            // Get current season
+            const currentSeason = getCurrentSeason();
+            
+            // Filter flowers by rarity and season
+            let availableFlowers = flowers.filter(flower => {
+                return flower.rarity === selectedRarity && 
+                       (flower.season === currentSeason || flower.season === 'any');
+            });
+            
+            // If no seasonal flowers of this rarity, fall back to any season
+            if (availableFlowers.length === 0) {
+                availableFlowers = getFlowersByRarity(selectedRarity);
+            }
+            
+            // If still no flowers (shouldn't happen), use all flowers
+            if (availableFlowers.length === 0) {
+                availableFlowers = flowers;
+            }
+            
+            // Select flower from available options
+            const index = Math.abs(hash >> 8) % availableFlowers.length;
+            return availableFlowers[index];
         }
         
         // Get quote for today
@@ -772,8 +1742,698 @@
             initCatVideo();
         }
         
-        // Start everything when page loadsfl
+        // Enhanced Interactive Features
+        
+        // Stats and Achievement System
+        let gameState = {
+            visitStreak: 1,
+            totalVisits: 1,
+            flowersCollected: [],
+            lovePoints: 100,
+            lastVisitDate: new Date().toDateString(),
+            achievements: [],
+            musicEnabled: false
+        };
+        
+        // Load saved game state
+        function loadGameState() {
+            const saved = localStorage.getItem('hannouket-flowers-game');
+            if (saved) {
+                const savedState = JSON.parse(saved);
+                gameState = { ...gameState, ...savedState };
+                
+                // Check visit streak
+                const today = new Date().toDateString();
+                const yesterday = new Date(Date.now() - 86400000).toDateString();
+                
+                if (gameState.lastVisitDate === today) {
+                    // Same day visit - don't increment
+                } else if (gameState.lastVisitDate === yesterday) {
+                    // Consecutive day - increment streak
+                    gameState.visitStreak++;
+                    gameState.totalVisits++;
+                    gameState.lovePoints += 50;
+                    gameState.lastVisitDate = today;
+                } else {
+                    // Streak broken - reset
+                    gameState.visitStreak = 1;
+                    gameState.totalVisits++;
+                    gameState.lovePoints += 10;
+                    gameState.lastVisitDate = today;
+                }
+            }
+            
+            updateStatsDisplay();
+        }
+        
+        function saveGameState() {
+            localStorage.setItem('hannouket-flowers-game', JSON.stringify(gameState));
+        }
+        
+        function updateStatsDisplay() {
+            document.getElementById('visit-streak').textContent = gameState.visitStreak;
+            document.getElementById('total-visits').textContent = gameState.totalVisits;
+            document.getElementById('flowers-collected').textContent = `${gameState.flowersCollected.length}/${flowers.length}`;
+            document.getElementById('love-points').textContent = gameState.lovePoints;
+        }
+        
+        // Enhanced Achievements with more variety
+        const achievements = [
+            { id: 'first-visit', name: 'First Bloom', desc: 'Welcome to your daily flower garden!', icon: '🌸', condition: () => gameState.totalVisits >= 1 },
+            { id: 'streak-3', name: 'Faithful Visitor', desc: 'Visited 3 days in a row!', icon: '🔥', condition: () => gameState.visitStreak >= 3 },
+            { id: 'streak-7', name: 'Garden Guardian', desc: 'Visited 7 days in a row!', icon: '🏆', condition: () => gameState.visitStreak >= 7 },
+            { id: 'streak-30', name: 'Devoted Gardener', desc: 'Visited 30 days in a row!', icon: '🌟', condition: () => gameState.visitStreak >= 30 },
+            { id: 'collector-5', name: 'Flower Enthusiast', desc: 'Collected 5 different flowers!', icon: '🌺', condition: () => gameState.flowersCollected.length >= 5 },
+            { id: 'collector-10', name: 'Botanical Expert', desc: 'Collected 10 different flowers!', icon: '🌼', condition: () => gameState.flowersCollected.length >= 10 },
+            { id: 'collector-20', name: 'Master Collector', desc: 'Collected 20 different flowers!', icon: '🌻', condition: () => gameState.flowersCollected.length >= 20 },
+            { id: 'love-points-500', name: 'Spreading Love', desc: 'Earned 500 love points!', icon: '💖', condition: () => gameState.lovePoints >= 500 },
+            { id: 'love-points-1000', name: 'Love Master', desc: 'Earned 1000 love points!', icon: '💝', condition: () => gameState.lovePoints >= 1000 },
+            { id: 'cat-lover', name: 'Cat Whisperer', desc: 'You love playing with Felfleya!', icon: '🐱', condition: () => gameState.catInteractions >= 10 },
+            { id: 'rare-collector', name: 'Rare Hunter', desc: 'Collected your first rare flower!', icon: '💎', condition: () => hasRareFlower('rare') },
+            { id: 'legendary-collector', name: 'Legend Seeker', desc: 'Found a legendary flower!', icon: '✨', condition: () => hasRareFlower('legendary') },
+            { id: 'seasonal-master', name: 'Season Explorer', desc: 'Collected flowers from all seasons!', icon: '🌍', condition: () => hasAllSeasons() },
+            { id: 'month-complete', name: 'Monthly Champion', desc: 'Visited every day this month!', icon: '📅', condition: () => checkMonthlyChallenge() },
+        ];
+        
+        // Helper functions for achievements
+        function hasRareFlower(rarity) {
+            return gameState.flowersCollected.some(name => {
+                const flower = flowers.find(f => f.name === name);
+                return flower && flower.rarity === rarity;
+            });
+        }
+        
+        function hasAllSeasons() {
+            const seasons = ['spring', 'summer', 'fall', 'winter'];
+            return seasons.every(season => {
+                return gameState.flowersCollected.some(name => {
+                    const flower = flowers.find(f => f.name === name);
+                    return flower && flower.season === season;
+                });
+            });
+        }
+        
+        function checkMonthlyChallenge() {
+            // Check if visited every day this month (simplified version)
+            return gameState.visitStreak >= 30; // Placeholder
+        }
+        
+        // Rarity bonus calculation system
+        function calculateRarityBonuses() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const bonuses = {
+                rareBoost: false,
+                legendaryBoost: false,
+                weekendBonus: false
+            };
+            
+            // Weekend bonus (Saturday = 6, Sunday = 0)
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                bonuses.weekendBonus = true;
+            }
+            
+            // High streak bonus
+            if (gameState.visitStreak >= 7) {
+                bonuses.rareBoost = true;
+            }
+            
+            // Very high streak legendary bonus
+            if (gameState.visitStreak >= 14) {
+                bonuses.legendaryBoost = true;
+            }
+            
+            // Special date bonuses
+            const month = today.getMonth() + 1;
+            const day = today.getDate();
+            
+            // Valentine's Day mega bonus
+            if (month === 2 && day === 14) {
+                bonuses.legendaryBoost = true;
+                bonuses.rareBoost = true;
+            }
+            
+            // First day of each month bonus
+            if (day === 1) {
+                bonuses.rareBoost = true;
+            }
+            
+            // Lucky number day (7th, 17th, 27th)
+            if (day === 7 || day === 17 || day === 27) {
+                bonuses.rareBoost = true;
+            }
+            
+            return bonuses;
+        }
+        
+        // Show active bonuses to the player
+        function showActiveBonus() {
+            const bonuses = calculateRarityBonuses();
+            const activeBonuses = [];
+            
+            if (bonuses.weekendBonus) {
+                activeBonuses.push('Weekend Bonus: Higher chance for uncommon flowers! 🎆');
+            }
+            
+            if (bonuses.rareBoost) {
+                const streakText = gameState.visitStreak >= 7 ? ` (${gameState.visitStreak}-day streak!)` : '';
+                activeBonuses.push(`Rare Boost Active: Better chance for rare flowers! 💎${streakText}`);
+            }
+            
+            if (bonuses.legendaryBoost) {
+                activeBonuses.push('Legendary Boost: Legendary flowers more likely! ✨🌟');
+            }
+            
+            if (activeBonuses.length > 0) {
+                setTimeout(() => {
+                    showSurpriseMessage(activeBonuses[0]);
+                    if (activeBonuses.length > 1) {
+                        setTimeout(() => {
+                            showSurpriseMessage(activeBonuses[1]);
+                        }, 3000);
+                    }
+                }, 2000);
+            }
+        }
+        
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (!gameState.achievements.includes(achievement.id) && achievement.condition()) {
+                    gameState.achievements.push(achievement.id);
+                    showAchievement(achievement);
+                    gameState.lovePoints += 100;
+                    saveGameState();
+                    updateStatsDisplay();
+                }
+            });
+        }
+        
+        function showAchievement(achievement) {
+            document.getElementById('achievement-icon').textContent = achievement.icon;
+            document.getElementById('achievement-title').textContent = achievement.name;
+            document.getElementById('achievement-desc').textContent = achievement.desc;
+            document.getElementById('achievement-popup').classList.add('show');
+        }
+        
+        function closeAchievement() {
+            document.getElementById('achievement-popup').classList.remove('show');
+        }
+        
+        // Interactive Features
+        function interactWithFlower() {
+            const flower = document.getElementById('flowerEmoji');
+            
+            // Add to collection
+            const todaysFlower = getTodaysFlower();
+            if (!gameState.flowersCollected.includes(todaysFlower.name)) {
+                gameState.flowersCollected.push(todaysFlower.name);
+                showSurpriseMessage(`You collected ${todaysFlower.name}! 🎉`);
+                gameState.lovePoints += 25;
+            }
+            
+            // Petal explosion effect
+            createPetalExplosion();
+            
+            // Random flower facts or messages
+            const messages = [
+                `${todaysFlower.name} represents ${todaysFlower.meaning}! 💕`,
+                'Every flower is a love letter written just for you! 💌',
+                'You make every day bloom brighter! ✨',
+                'Click Felfleya for a cute surprise! 🐱',
+                'Check your flower collection book! 📚'
+            ];
+            
+            if (Math.random() < 0.3) {
+                setTimeout(() => {
+                    showSurpriseMessage(messages[Math.floor(Math.random() * messages.length)]);
+                }, 1000);
+            }
+            
+            saveGameState();
+            updateStatsDisplay();
+            checkAchievements();
+        }
+        
+        function interactWithCat() {
+            const cat = document.getElementById('cat-video');
+            const reactions = ['😻', '😸', '😹', '😺', '😼'];
+            
+            // Cat reaction
+            const reaction = reactions[Math.floor(Math.random() * reactions.length)];
+            showFloatingEmoji(reaction, cat);
+            
+            // Cat messages
+            const catMessages = [
+                'Felfleya says meow! 🐱',
+                'Felfleya is happy to see you! 😻',
+                'Felfleya wants to play! 🏠',
+                'Felfleya purrs with love! 💖',
+                'Felfleya collected a flower for you! 🌼'
+            ];
+            
+            showSurpriseMessage(catMessages[Math.floor(Math.random() * catMessages.length)]);
+            
+            // Track cat interactions
+            gameState.catInteractions = (gameState.catInteractions || 0) + 1;
+            gameState.lovePoints += 10;
+            
+            saveGameState();
+            updateStatsDisplay();
+            checkAchievements();
+        }
+        
+        function createPetalExplosion() {
+            const petals = ['🌸', '🌺', '🌼', '🌷', '🌹'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    petal.style.animationDelay = Math.random() * 1 + 's';
+                    document.body.appendChild(petal);
+                    
+                    setTimeout(() => petal.remove(), 5000);
+                }, i * 100);
+            }
+        }
+        
+        function showFloatingEmoji(emoji, element) {
+            const floating = document.createElement('div');
+            floating.textContent = emoji;
+            floating.style.position = 'fixed';
+            floating.style.left = element.offsetLeft + element.offsetWidth/2 + 'px';
+            floating.style.top = element.offsetTop + 'px';
+            floating.style.fontSize = '2rem';
+            floating.style.pointerEvents = 'none';
+            floating.style.zIndex = '100';
+            floating.style.animation = 'float 2s ease-out forwards';
+            document.body.appendChild(floating);
+            
+            setTimeout(() => floating.remove(), 2000);
+        }
+        
+        function showSurpriseMessage(message) {
+            document.getElementById('surprise-text').innerHTML = message;
+            document.getElementById('surprise-message').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('surprise-message').classList.remove('show');
+            }, 5000);
+        }
+        
+        function closeSurpriseMessage() {
+            document.getElementById('surprise-message').classList.remove('show');
+        }
+        
+        // Theme Switching
+        const themes = {
+            day: {
+                bgGradient: 'linear-gradient(135deg, #87ceeb 0%, #98fb98 25%, #ffeb3b 50%, #ff9800 75%, #e91e63 100%)',
+                titleColor: '#2196f3',
+                cardBg: 'rgba(255, 255, 255, 0.9)'
+            },
+            night: {
+                bgGradient: 'linear-gradient(135deg, #2c3e50 0%, #34495e 25%, #2c3e50 50%, #1a252f 75%, #2c3e50 100%)',
+                titleColor: '#ecf0f1',
+                cardBg: 'rgba(52, 73, 94, 0.9)'
+            },
+            sunset: {
+                bgGradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 25%, #ff6b6b 50%, #feca57 75%, #ff9ff3 100%)',
+                titleColor: '#fff',
+                cardBg: 'rgba(255, 255, 255, 0.85)'
+            }
+        };
+        
+        function switchTheme(themeName) {
+            const theme = themes[themeName];
+            if (theme) {
+                document.documentElement.style.setProperty('--bg-gradient', theme.bgGradient);
+                document.documentElement.style.setProperty('--title-color', theme.titleColor);
+                document.documentElement.style.setProperty('--card-bg', theme.cardBg);
+                
+                localStorage.setItem('selected-theme', themeName);
+                showSurpriseMessage(`Switched to ${themeName} theme! ✨`);
+            }
+        }
+        
+        // Relaxing playlist
+        const relaxingTracks = [
+            // Gentle, long-form ambient examples
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3'
+        ];
+        
+        function selectRelaxingTrack() {
+            const music = document.getElementById('background-music');
+            const track = relaxingTracks[Math.floor(Math.random() * relaxingTracks.length)];
+            if (music.src !== track) {
+                music.src = track;
+            }
+        }
+        
+        function fadeInAudio(audioEl, durationMs = 2000, targetVolume = 0.2) {
+            audioEl.volume = 0;
+            const steps = 20;
+            const stepTime = durationMs / steps;
+            let current = 0;
+            const interval = setInterval(() => {
+                current++;
+                audioEl.volume = Math.min(targetVolume, (current / steps) * targetVolume);
+                if (current >= steps) clearInterval(interval);
+            }, stepTime);
+        }
+        
+        // Music Control
+        function toggleMusic() {
+            const music = document.getElementById('background-music');
+            const button = document.getElementById('music-toggle');
+            
+            if (gameState.musicEnabled) {
+                music.pause();
+                button.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                gameState.musicEnabled = false;
+            } else {
+                selectRelaxingTrack();
+                music.volume = 0.2; // gentle base volume
+                music.play().then(() => fadeInAudio(music, 2000, 0.2)).catch(() => console.log('Music autoplay blocked'));
+                button.innerHTML = '<i class="fas fa-volume-up"></i>';
+                gameState.musicEnabled = true;
+            }
+            
+            saveGameState();
+        }
+        
+        // Enhanced Flower Collection Book with rarity system
+        function openCollection() {
+            const grid = document.getElementById('collection-grid');
+            grid.innerHTML = '';
+            
+            // Add collection stats header
+            const statsHeader = document.createElement('div');
+            statsHeader.style.cssText = 'margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.7); border-radius: 15px; text-align: center;';
+            
+            const totalCollected = gameState.flowersCollected.length;
+            const totalFlowers = flowers.length;
+            const completionPercent = Math.round((totalCollected / totalFlowers) * 100);
+            
+            // Count by rarity
+            const rarityCount = {
+                'common': { collected: 0, total: 0 },
+                'uncommon': { collected: 0, total: 0 },
+                'rare': { collected: 0, total: 0 },
+                'legendary': { collected: 0, total: 0 }
+            };
+            
+            flowers.forEach(flower => {
+                rarityCount[flower.rarity].total++;
+                if (gameState.flowersCollected.includes(flower.name)) {
+                    rarityCount[flower.rarity].collected++;
+                }
+            });
+            
+            statsHeader.innerHTML = `
+                <h3 style="color: var(--signature-color); margin-bottom: 15px;">Collection Progress: ${totalCollected}/${totalFlowers} (${completionPercent}%)</h3>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
+                    <div style="text-align: center;">
+                        <div style="color: #4caf50; font-weight: 600;">Common</div>
+                        <div>${rarityCount.common.collected}/${rarityCount.common.total}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #2196f3; font-weight: 600;">Uncommon</div>
+                        <div>${rarityCount.uncommon.collected}/${rarityCount.uncommon.total}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #9c27b0; font-weight: 600;">Rare</div>
+                        <div>${rarityCount.rare.collected}/${rarityCount.rare.total}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #ff9800; font-weight: 600;">Legendary</div>
+                        <div>${rarityCount.legendary.collected}/${rarityCount.legendary.total}</div>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(statsHeader);
+            
+            // Group flowers by rarity
+            const flowersByRarity = {
+                'legendary': [],
+                'rare': [],
+                'uncommon': [],
+                'common': []
+            };
+            
+            flowers.forEach(flower => {
+                flowersByRarity[flower.rarity].push(flower);
+            });
+            
+            // Display flowers by rarity
+            Object.entries(flowersByRarity).forEach(([rarity, flowerList]) => {
+                if (flowerList.length === 0) return;
+                
+                const raritySection = document.createElement('div');
+                raritySection.style.cssText = 'margin-bottom: 25px;';
+                
+                const rarityColors = {
+                    'legendary': '#ff9800',
+                    'rare': '#9c27b0',
+                    'uncommon': '#2196f3',
+                    'common': '#4caf50'
+                };
+                
+                const rarityHeader = document.createElement('h4');
+                rarityHeader.style.cssText = `color: ${rarityColors[rarity]}; margin-bottom: 10px; text-transform: capitalize; font-size: 1.2rem;`;
+                rarityHeader.textContent = `${rarity} Flowers`;
+                raritySection.appendChild(rarityHeader);
+                
+                flowerList.forEach(flower => {
+                    const item = document.createElement('div');
+                    item.className = 'flower-collection-item';
+                    item.style.cssText += `border: 2px solid ${rarityColors[rarity]}20;`;
+                    
+                    if (gameState.flowersCollected.includes(flower.name)) {
+                        item.classList.add('collected');
+                        item.style.cssText += `box-shadow: 0 5px 15px ${rarityColors[rarity]}40;`;
+                    }
+                    
+                    const seasonEmoji = {
+                        'spring': '🌱',
+                        'summer': '☀️',
+                        'fall': '🍂',
+                        'winter': '❄️',
+                        'any': '🌍'
+                    };
+                    
+                    item.innerHTML = `
+                        <div style="font-size: 2.5rem;">${flower.emoji}</div>
+                        <div style="font-weight: 600; margin: 5px 0; color: ${rarityColors[rarity]};">${flower.name}</div>
+                        <div style="font-size: 0.8rem; color: var(--quote-color); margin-bottom: 5px;">${flower.meaning}</div>
+                        <div style="font-size: 0.7rem; color: #666; margin-bottom: 5px;">${seasonEmoji[flower.season]} ${flower.season}</div>
+                        ${gameState.flowersCollected.includes(flower.name) ? 
+                            `<div style="color: #32cd32; font-size: 0.8rem; font-weight: 600;">✓ COLLECTED</div>` : 
+                            `<div style="color: #999; font-size: 0.8rem;">❓ Not yet found</div>`}
+                    `;
+                    
+                    if (gameState.flowersCollected.includes(flower.name)) {
+                        item.addEventListener('click', () => {
+                            showSurpriseMessage(`${flower.name}: ${flower.meaning} 💕\nFound on: ${getCollectionDate(flower.name)}`);
+                        });
+                    }
+                    
+                    raritySection.appendChild(item);
+                });
+                
+                grid.appendChild(raritySection);
+            });
+            
+            document.getElementById('collection-book').classList.add('show');
+        }
+        
+        function getCollectionDate(flowerName) {
+            // This would track when each flower was collected
+            // For now, return a placeholder
+            return 'Recently discovered! ✨';
+        }
+        
+        function closeCollection() {
+            document.getElementById('collection-book').classList.remove('show');
+        }
+        
+        // Memory Game
+        let gameBoard = [];
+        let flippedCards = [];
+        let gameScore = 0;
+        let gameMatches = 0;
+        
+        function openMiniGame() {
+            initMemoryGame();
+            document.getElementById('mini-game').classList.add('show');
+        }
+        
+        function closeMiniGame() {
+            document.getElementById('mini-game').classList.remove('show');
+        }
+        
+        function initMemoryGame() {
+            const gameFlowers = ['🌹', '🌸', '🌺', '🌼', '🌷', '🌿', '🌾', '🌽'];
+            gameBoard = [...gameFlowers, ...gameFlowers].sort(() => Math.random() - 0.5);
+            flippedCards = [];
+            gameScore = 0;
+            gameMatches = 0;
+            
+            const board = document.getElementById('game-board');
+            board.innerHTML = '';
+            
+            gameBoard.forEach((flower, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.textContent = '?';
+                card.onclick = () => flipCard(card, flower, index);
+                board.appendChild(card);
+            });
+            
+            updateGameScore();
+        }
+        
+        function flipCard(card, flower, index) {
+            if (card.classList.contains('flipped') || flippedCards.length >= 2) return;
+            
+            card.classList.add('flipped');
+            card.textContent = flower;
+            flippedCards.push({ card, flower, index });
+            
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+        
+        function checkMatch() {
+            const [first, second] = flippedCards;
+            
+            if (first.flower === second.flower) {
+                gameScore += 10;
+                gameMatches++;
+                flippedCards = [];
+                
+                if (gameMatches === 8) {
+                    setTimeout(() => {
+                        showSurpriseMessage('Congratulations! You won the memory game! 🎉');
+                        gameState.lovePoints += 100;
+                        saveGameState();
+                        updateStatsDisplay();
+                        closeMiniGame();
+                    }, 500);
+                }
+            } else {
+                first.card.classList.remove('flipped');
+                first.card.textContent = '?';
+                second.card.classList.remove('flipped');
+                second.card.textContent = '?';
+                flippedCards = [];
+            }
+            
+            updateGameScore();
+        }
+        
+        function updateGameScore() {
+            document.getElementById('game-score').textContent = `Score: ${gameScore}`;
+        }
+        
+        // Weather Integration (Mock)
+        function updateWeatherWidget() {
+            const weather = document.getElementById('weather-widget');
+            const conditions = ['Sunny ☀️', 'Cloudy ☁', 'Rainy 🌧️', 'Snowy ❄️', 'Perfect 🌈'];
+            const today = new Date().getDay();
+            weather.textContent = conditions[today % conditions.length];
+        }
+        
+        // Special Occasion Detection
+        function checkSpecialOccasions() {
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const day = today.getDate();
+            
+            // Valentine's Day
+            if (month === 2 && day === 14) {
+                showSurpriseMessage('Happy Valentine\'s Day, my love! 💖 Extra special flowers today!');
+                gameState.lovePoints += 200;
+            }
+            
+            // Add your special dates here
+            // Anniversary, birthday, etc.
+        }
+        
+        // Random Surprise Elements
+        function triggerRandomSurprises() {
+            if (Math.random() < 0.15) { // 15% chance
+                const surprises = [
+                    'A magical butterfly landed on your flower! 🦋✨',
+                    'The flower whispers: "You are amazing!" 🌺💕',
+                    'Look! A shooting star for your love! 🌠💖',
+                    'The flowers dance just for you! 🎵🌸',
+                    'A secret message: You light up my world! ✨'
+                ];
+                
+                setTimeout(() => {
+                    showSurpriseMessage(surprises[Math.floor(Math.random() * surprises.length)]);
+                }, Math.random() * 10000 + 5000); // Random delay 5-15 seconds
+            }
+        }
+        
+        // Enhanced init function
+        function init() {
+            loadGameState();
+            
+            const todaysFlower = getTodaysFlower();
+            const todaysQuote = getTodaysQuote();
+            
+            document.getElementById('currentDate').textContent = formatDate();
+            document.getElementById('flowerEmoji').textContent = todaysFlower.emoji;
+            document.getElementById('flowerName').textContent = todaysFlower.name;
+            document.getElementById('flowerMeaning').textContent = todaysFlower.meaning;
+            document.getElementById('dailyQuote').textContent = `"${todaysQuote}"`;
+            
+            // Apply the flower's theme
+            if (todaysFlower.theme) {
+                applyTheme(todaysFlower.theme);
+            }
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('selected-theme');
+            if (savedTheme && themes[savedTheme]) {
+                switchTheme(savedTheme);
+            }
+            
+            createFloatingElements();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            initCatVideo();
+            updateWeatherWidget();
+            checkSpecialOccasions();
+            checkAchievements();
+            triggerRandomSurprises();
+            showActiveBonus();
+            
+            // Setup music based on saved preference
+            if (gameState.musicEnabled) {
+                selectRelaxingTrack();
+                const music = document.getElementById('background-music');
+                music.volume = 0.2;
+                music.play().catch(() => {});
+                document.getElementById('music-toggle').innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        // Start everything when page loads
         window.addEventListener('load', init);
+        
+        // Save state before page unload
+        window.addEventListener('beforeunload', saveGameState);
     </script>
 </body>
 </html>
