@@ -1624,13 +1624,20 @@
         
         function getTodaysFlower() {
             const today = new Date();
-            const dateStr = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+            // Pad month and day to ensure consistent string length for hash
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const dateStr = `${today.getFullYear()}-${month}-${day}`;
             
-            // Create hash for deterministic randomness
+            // Create hash for deterministic randomness with better distribution
             let hash = 0;
             for (let i = 0; i < dateStr.length; i++) {
-                hash = dateStr.charCodeAt(i) + ((hash << 5) - hash);
+                const char = dateStr.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
             }
+            // Make hash positive and larger for better distribution
+            hash = Math.abs(hash) * 2654435761; // Multiply by large prime
             
             // Base rarity chances
             let rarityChances = {
@@ -1673,24 +1680,27 @@
             // Get current season
             const currentSeason = getCurrentSeason();
             
-            // Filter flowers by rarity and season
+            // Filter flowers - ensure they have rarity and season properties
             let availableFlowers = flowers.filter(flower => {
-                return flower.rarity === selectedRarity && 
-                       (flower.season === currentSeason || flower.season === 'any');
+                const flowerRarity = flower.rarity || 'common';
+                const flowerSeason = flower.season || 'any';
+                return flowerRarity === selectedRarity && 
+                       (flowerSeason === currentSeason || flowerSeason === 'any');
             });
             
             // If no seasonal flowers of this rarity, fall back to any season
             if (availableFlowers.length === 0) {
-                availableFlowers = getFlowersByRarity(selectedRarity);
+                availableFlowers = flowers.filter(f => (f.rarity || 'common') === selectedRarity);
             }
             
-            // If still no flowers (shouldn't happen), use all flowers
+            // If still no flowers, use all flowers
             if (availableFlowers.length === 0) {
                 availableFlowers = flowers;
             }
             
-            // Select flower from available options
-            const index = Math.abs(hash >> 8) % availableFlowers.length;
+            // Use a different hash calculation for flower selection to ensure variety
+            const flowerHash = Math.abs(hash * 31 + today.getDate() * 17);
+            const index = flowerHash % availableFlowers.length;
             return availableFlowers[index];
         }
         
